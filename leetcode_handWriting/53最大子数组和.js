@@ -6,7 +6,7 @@ var maxSubArray = function(nums) {
     for(let i=0; i<nums.length; i++) {
         //如果之前和>0
         if(loop > 0) {
-            //讲当前项纳入到当前和
+            //将当前项纳入到当前和
             cur = loop + nums[i];
         } else {
             //重置当前和为当前项
