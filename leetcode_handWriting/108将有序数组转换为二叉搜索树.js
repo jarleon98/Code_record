@@ -13,10 +13,10 @@ var sortedArrayToBST = function(nums) {
 const toBST  = (nums, l, r) => {
     if(l > r)
         return null;
-    const mid = l + r >> 1;
+    const mid = l + r >> 1; 
     const root = new TreeNode(nums[mid]);
     root.left = toBST(nums, l, mid-1);
     root.right = toBST(nums, mid+1, r);
 
     return root
-}
+};
