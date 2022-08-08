@@ -18,7 +18,7 @@ const unique1_2 = (arr) => {
 
 // 2 嵌套for循环，splice删除
 const unique2 = (arr) => {
-    for(var i=0; i<arr.length; i++){
+    for(var i=0; i<arr.length - 1; i++){
         for(var j=i+1; j<arr.length; j++){
             if(arr[i] === arr[j]){
                 // 值相同，删除第二个
@@ -27,6 +27,7 @@ const unique2 = (arr) => {
             }
         }
     }
+    return arr
 };
 
 // 3 for循环，indexOf去重
