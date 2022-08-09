@@ -5,6 +5,9 @@
  * 该数组排序完毕
  * 
  * 时间复杂度 O(n方)
+ * 
+ * 从第二个数开始往前比 大就往后排
+ * 
  */
 function insertSort(arr){
     const len = arr.length;
@@ -18,4 +21,18 @@ function insertSort(arr){
         arr[j] = val;
     }
     return arr;
+}
+
+const InsertSort = (arr) => {
+    const len = arr.length;
+    for(let i = 0; i < len; i++) {
+        var currentIndex = i;
+        var currentVal = arr[i];
+        while(currentIndex > 0 && arr[currentIndex - 1] > currentVal) {
+            [arr[currentIndex - 1], arr[currentIndex]] = [arr[currentIndex], arr[currentIndex - 1]];
+            currentIndex--;
+        }
+        arr[currentIndex] = currentVal;
+    }
+    return arr
 }

@@ -4,6 +4,9 @@
  * 再从剩余未排元素中寻找最小元素，类推。
  * 
  * 时间复杂度 O(n方)
+ * 
+ * 找到数组最小值，放在第一位
+ * 
  */
 function selectSort(arr){
     const len = arr.length;
@@ -15,6 +18,22 @@ function selectSort(arr){
         }
         //将k存在左面，遍历从k开始
         [arr[i], arr[k]] = [arr[k], arr[i]];
+    }
+    return arr
+}
+
+
+
+const select = (arr) => {
+    const len = arr.length;
+    for(let i = 0; i < len - 1; i++) {
+        let minIndex = i;
+        for(let j = i + 1; j < len; j++) {
+            if(arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
     }
     return arr
 }
