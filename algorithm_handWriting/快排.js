@@ -20,3 +20,18 @@ function quickSort(arr){
     //递归
     return [...quickSort(left), midVal, ...quickSort(right)];
 }
+
+
+
+
+const Quick = (arr) => {
+    var len = arr.length;
+    if(len <= 1) return arr
+    let midIndex = parseInt(len / 2);
+    let midVal = arr.splice(midIndex, 1)[0];
+    let left = [], right = [];
+    for(let i of arr) {
+        i > midVal ? right.push(i) : left.push(i);
+    }
+    return [...Quick(left), midVal, ...Quick(right)]
+}

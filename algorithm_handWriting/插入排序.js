@@ -36,3 +36,17 @@ const InsertSort = (arr) => {
     }
     return arr
 }
+
+const Insert = (arr) => {
+    var len = arr.length;
+    for(let i = 0; i < len - 1; i++) {
+        var curIndex = i;
+        var curVal = arr[i];
+        while(curIndex > 0 && arr[curIndex - 1] > curVal) {
+            [arr[curIndex - 1], arr[curIndex]] = [arr[curIndex], arr[curIndex - 1]];
+            curIndex--;
+        }
+        arr[curIndex] = curVal;
+    }
+    return arr
+};

@@ -18,3 +18,19 @@ function bubbleSort(arr) {
     return arr;
 }
 
+
+
+
+
+const bubble = (arr) => {
+    var len = arr.length;
+    for(let i = len ; i > 0; i--) {
+        for(let j = 0; j < i; j++) {
+            if(arr[j] < arr[j-1]) {
+                [arr[j], arr[j-1]] = [arr[j-1], arr[j]];
+            }
+        }
+    }
+    return arr
+}
+
