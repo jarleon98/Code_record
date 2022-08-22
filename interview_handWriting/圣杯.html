@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <style>
+        body {
+           min-width: 550px;
+           font-weight: bold;
+           font-size: 20px; 
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .header , .footer {
+            background: gray;
+            width: 100%;
+        }
+        /* 底部清除浮动 */
+        .footer {
+            clear: both;
+        }
+        .main {
+            height: 200p0x;
+            /* 逆时针 */
+            padding: 0 150px 0 200px;
+        }
+        /* 添加浮动 */
+        .left , .center , .right {
+            float: left;
+        }
+        .center {
+            width: 100%;
+            height: 200px;
+            border-color: lightcoral;
+        }
+        .left {
+            /* 与padding相同 */
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            /* 浮动后左移到center左部 */
+            margin-left: -100%;
+            /* 相对位置后左移width */
+            position: relative;
+            left: -200px;
+        }
+        .right {
+            width: 150px;
+            height: 200px;
+            background-color: lightgreen;
+            margin-left: -150px;
+            position: relative;
+            left: 150px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">Header</div>
+    <div class="main">
+        <div class="center">Center</div>
+        <div class="left">Left</div>
+        <div class="right">Right</div>
+    </div>
+    <div class="footer">Footer</div>
+</body>
+</html>

@@ -33,7 +33,7 @@ Function.prototype.myApply = function(context, args) {
 
 Function.prototype.myBind = function(context, ...rest) {
     return (...newArgs) => [
-        this.apply(context, [...rest, ...newArgs]);
+        this.apply(context, [...rest, ...newArgs])
     ]
 }
 
@@ -79,7 +79,7 @@ const InsertSort = (arr) => {
 
 const QuickSort = (arr) => {
     let len = arr.length;
-    let mid = parent(len >> 2);
+    let mid = parseInt(len >> 2);
     let midVal = arr.slice(mid, 1)[0];
     let left = [], right = [];
     for(let i of arr) {
