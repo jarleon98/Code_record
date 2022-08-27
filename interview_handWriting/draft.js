@@ -1,11 +1,11 @@
 const bubbleSort = (arr) => {
     const len = arr.length;
     for(let i = len; i > 0; i--) {
-         for(let j = 0; j < i; j++) {
+        for(let j = 0; j < i; j++) {
             if(arr[j] < arr[j-1]) {
                 [arr[j], arr[j-1]] = [arr[j-1], arr[j]];
             }
-         }
+        }
     }
     return arr
 };
@@ -13,13 +13,13 @@ const bubbleSort = (arr) => {
 const insertSort = (arr) => {
     const len = arr.length;
     for(let i = 0; i < len; i++) {
-        let minIndex = i;
+        let min = i;
         for(let j = i; j < len; j++) {
-            if(arr[j] < arr[minIndex]) {
-                minIndex = j;
+            if(arr[j] < arr[min]) {
+                min = j;
             }
         }
-        [arr[minIndex], arr[i]] = [arr[i], arr[minIndex]];
+        [arr[i], arr[min]] = [arr[min], arr[i]];
     }
     return arr
 };
@@ -27,28 +27,27 @@ const insertSort = (arr) => {
 const selectSort = (arr) => {
     const len = arr.length;
     for(let i = 0; i < len; i++) {
-        let curIndex = i;
+        let cur = i;
         let curVal = arr[i];
-        for(let j = curIndex; j < len; j++) {
-            while(curIndex > 0 && arr[curIndex - 1] > curVal) {
-                [arr[curIndex], arr[curIndex - 1]] = [arr[curIndex - 1], arr[curIndex]];
-                curIndex--;
-            }
+        while(curVal > 0 && arr[cur - 1] > curVal) {
+            [arr[cur], arr[cur - 1]] = [arr[cur - 1], arr[cur]];
+            cur--;
         }
-        arr[curIndex] = curVal;
+        arr[cur] = curVal;
     }
-
+    return arr
 };
 
 const quickSort = (arr) => {
-    let len = arr.length;
+    const len = arr.length;
     let mid = parseInt(len >> 2);
-    let midVal = arr.slice(mid, 1)[0];
+    let midVal = arr.slice(arr, 1)[0];
     let left = [], right = [];
     for(let i of arr) {
-        i > midVal ? right.push(i) : left.push(i);
+        i > midVal ? right.push() : left.push();
     }
-    return [...quickSort(left, midVal, ...quickSort(right))]
+    return [...quickSort(left), midVal, ...quickSort(right)]
+
 };
 
 var timer = null;
@@ -62,7 +61,7 @@ const fangdou = () => {
 var flag = true;
 const jieliu = () => {
     if(!flag) {
-        return
+        return 
     }
     flag = false;
     setTimeout(() => {
@@ -76,11 +75,11 @@ const myCurry = () => {
     let _add = () => {
         _args.push(...arguments);
         return _add
-    };
+    }
     _add.toString = () => {
-        return _args.reduce((x,y) => {
-            x + y;
-        })
+        return _args.reduce((x, y) => {
+            return x + y;
+        }, 0)
     }
     return _add
 };
@@ -92,19 +91,19 @@ Function.prototype.myCall = (context, ...rest) => {
     return res
 };
 
-Function.prototype.myApply = (context, rest) => {
+Function.prototype.myApply = (context, args) => {
     context.fn() = this;
     let res;
-    if(!rest) {
+    if(!args) {
         res = context.fn();
     } else {
-        res = context.fn(...rest);
+        res = context.fn(args);
     }
     return res
 };
 
-Function.prototype.myBind = (context, ...rest) => {
-    return (...newRest) => {
-        this.apply(context, [...rest, ...newRest])
+Function.prototype.myBind = (context, ...args) => {
+    return (...newArgs) => {
+        this.apply(context, [...args, ...newArgs]);
     }
 };
