@@ -29,7 +29,7 @@ const selectSort = (arr) => {
     for(let i = 0; i < len; i++) {
         let cur = i;
         let curVal = arr[i];
-        while(curVal > 0 && arr[cur - 1] > curVal) {
+        while(cur > 0 && arr[cur - 1] > curVal) {
             [arr[cur], arr[cur - 1]] = [arr[cur - 1], arr[cur]];
             cur--;
         }
@@ -107,3 +107,10 @@ Function.prototype.myBind = (context, ...args) => {
         this.apply(context, [...args, ...newArgs]);
     }
 };
+
+const myNew = (fn, ...args) => {
+    let obj = {};
+    Object.setPrototypeOf(obj, fn.prototype);
+    let res = fn.call(obj.args);
+    return res instanceof Object ? res : obj;
+}
