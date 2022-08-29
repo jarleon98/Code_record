@@ -7,4 +7,4 @@ const myNew = (fn, ...args) => {
     var result = fn.call(obj.args);
     // 4, 返回判断
     return result instanceof Object ? result : obj;
-}
+}       
