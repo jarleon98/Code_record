@@ -82,20 +82,65 @@ const myCurry = () => {
 
 Function.prototype.myCall = (context, ...rest) => {
     context.fn = this;
-    
+    let res = context.fn(...rest);
+    delete context.fn();
+    return res    
 };
 
 Function.prototype.myApply = (context, args) => {
-
+    context.fn = this;
+    let res;
+    if(!args) {
+        res = context.fn();
+    } else {
+        res = context.fn(args);
+    }
+    return res
 };
 
 Function.prototype.myBind = (context, ...args) => {
-
+    return (...newArgs) => {
+        this.apply(context, [...args, ...newArgs])
+    }
 };
 
 const myNew = (fn, ...args) => {
     let obj = {};
     Object.setPrototypeOf(obj, fn);
-    var res = fn.call(obj.args);
-    return res instanceof Object ? res : obj
+    let res = fn.apply(obj.args);
+    return res instanceof Object ? res : obj;
+
+};
+
+Promise.newAll = function(promises){
+    let arr = [];
+    let count = 0;
+    return new Promise((reslove, reject) => {
+        promises.forEach((item, i) => {
+            Promise.reslove(item).then(res => {
+                arr[i] = res;
+                count += 1;
+                if(count == arr.length) {
+                    reslove(arr);
+                }
+            }).catch(reject);
+        })
+    })
+};
+
+const dfs = (root) => {
+    console.log(root);
+    root.children.forEach(dfs);
 }
+
+const bfs = (root) => {
+    let queue = [];
+    while(queue.length) {
+        let q = queue.shift();
+        console.log(q.val);
+        q.children.forEach(e => {
+            queue.push(e);
+        })
+    }
+}
+
