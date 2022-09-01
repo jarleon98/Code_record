@@ -15,7 +15,7 @@ const insertSort = (arr) => {
     for(let i = 0; i < len; i++) {
         var curIndex = i;
         var curVal = arr[i];
-        while(curIndex > 0 && arr[curIndex - 1] > arr[curIndex]) {
+        while(curIndex > 0 && arr[curIndex - 1] > curVal) {
             [arr[curIndex-1], arr[curIndex]] = [arr[curIndex], arr[curIndex-1]];
             curIndex--;
         }
@@ -134,7 +134,7 @@ const dfs = (root) => {
 }
 
 const bfs = (root) => {
-    let queue = [];
+    let queue = [root];
     while(queue.length) {
         let q = queue.shift();
         console.log(q.val);
@@ -144,3 +144,15 @@ const bfs = (root) => {
     }
 }
 
+// 组合式继承
+function Parent() {
+    this.age = 10;
+}
+
+function Child() {
+    Parent.call(this);
+    this.name = '12';
+}
+Child.prototype = new Parent();
+
+let extendTest = new Child();
