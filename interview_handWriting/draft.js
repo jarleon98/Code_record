@@ -156,3 +156,17 @@ function Child() {
 Child.prototype = new Parent();
 
 let extendTest = new Child();
+
+const deepCopy = (dest, src) {
+    var dest = dest || {};
+    for(let key in src) {
+        // 引用类型
+        if(typeof src[key] === 'object') {
+            // 数组的constructor会返回Array，对象的constructor会返回Object
+            dest[key] = src[key].constructor === Array ? [] : {};
+            deepCopy(dest[key], src[key]);
+        } else {
+            dest[key] = src[key];
+        }
+    }
+}
