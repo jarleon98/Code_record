@@ -40,8 +40,14 @@ const selectSort = (arr) => {
 };
 
 const quickSort = (arr) => {
+    let len = arr.len;
+    let midIndex = parseInt(len >> 2);
+    let midVal = arr.slice(midIndex, 1)[0];
+    let left = [], right = [];
+    for(let i of arr) {
+        i > midVal ? right.push() : left.push();
 
-
+    return [...quickSort(left), midVal, ...quickSort(right)]
 };
 
 var timer = null;
@@ -106,22 +112,22 @@ Function.prototype.myBind = (context, ...args) => {
 
 const myNew = (fn, ...args) => {
     let obj = {};
-    Object.setPrototypeOf(obj, fn);
-    let res = fn.apply(obj.args);
-    return res instanceof Object ? res : obj;
+    Object.setPrototypeOf(obj, fn.prototype);
+    let res = fn.call(obj.args);
+    return res instanceof Object ? res : obj
 
 };
 
 Promise.newAll = function(promises){
     let arr = [];
     let count = 0;
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
         promises.forEach((item, i) => {
-            Promise.reslove(item).then(res => {
+            Promise.resolve(item).then(res => {
                 arr[i] = res;
                 count += 1;
-                if(count == arr.length) {
-                    reslove(arr);
+                if(count == promises.length) {
+                    resolve(arr)
                 }
             }).catch(reject);
         })
@@ -154,19 +160,55 @@ function Child() {
     this.name = '12';
 }
 Child.prototype = new Parent();
-
 let extendTest = new Child();
 
-const deepCopy = (dest, src) {
-    var dest = dest || {};
+
+const deepClone = (target, src) => {
+    var target = {};
     for(let key in src) {
-        // 引用类型
         if(typeof src[key] === 'object') {
-            // 数组的constructor会返回Array，对象的constructor会返回Object
-            dest[key] = src[key].constructor === Array ? [] : {};
-            deepCopy(dest[key], src[key]);
+            target[key] = src[key].constructor === Array ? [] : {};
+            deepClone(target[key], src[key]);
         } else {
-            dest[key] = src[key];
+            target[key] = src[key];
         }
     }
 }
+
+// vue3 响应式原理
+let obj = new Proxy(obj, {
+    get: function(target, propKey, receiver) {
+        return Reflect.get(target, propKey, receiver)
+    },
+    set: function(target, propKey, value, receiver) {
+        return Reflect.set(target, propKey, value, receiver)
+    }
+})
+// vue2 响应式原理
+Object.defineProperty(obj, key, {
+    get: function getter(){
+        return obj[key]
+    },
+    set: function setter(newVal){
+
+    }
+})
+
+// v-model
+<template>
+    <input @input='onInput' :value="localValue" />
+</template>
+<script>
+    export default {
+        data() {
+            return {
+                localValue: '',
+            }
+        },
+        methods: {
+            oninput(v){
+                this.localValue = v.target.value;
+            }
+        }
+    }
+</script>
