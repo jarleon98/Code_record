@@ -1,64 +1,54 @@
 const myCurry = () => {
-    var _args = Array.prototype.slice.call(arguments);
-    let _inner = () => {
+    let _args = Array.prototype.slice.call(arguments);
+    let _inFun = () => {
         _args.push(...arguments);
-        return _inner
+        return _inFun
     }
-    _inner.toString = () => {
-        return _args.reduce((a,b) => {
-            a + b;
+    _inFun.toString = () => {
+        return _args.reduce((x,y) => {
+            retu rn x + y
         })
     }
-    return _inner
-    
+    return _inFun    
 }
 
 Function.prototype.myCall = function(context, ...rest) {
-    context.fn() = this;
-    var res = context.fn(...next);
+    context.fn = this;
+    let res = context.fn(...rest);
     delete context.fn;
     return res
 }
 
 Function.prototype.myApply = function(context, args) {
-    context.fn() = this;
+    context.fn = this;
     let res;
     if(!args) {
-        res = context.fn();
+        return context.fn()
     } else {
-        res = context.fn(args);
+        return context.fn(args)
     }
-    return res
 }
 
 Function.prototype.myBind = function(context, ...rest) {
-    return (...newArgs) => [
-        this.apply(context, [...rest, ...newArgs])
-    ]
+    return (...newArgs) => {
+        this.apply(context, [...args, newArgs])
+    }
 }
 
 const BubbleSort = (arr) => {
-    const len = arr.length;
-    for(let i = len; i > 0; i--) {
-        for(let j = 0; j < i; j++) {
-            if(arr[j] < arr[j-1]) {
-                [arr[j], arr[j-1]] = [arr[j-1], arr[j]];
-            }
-        }
-    }
-    return arr    
+
 };
 
 const SelectSort = (arr) => {
     const len = arr.length;
     for(let i = 0; i < len; i++) {
-        let minIndex = i;
+        let min = i;
         for(let j = i; j < len; j++) {
-            if(arr[j] < arr[minIndex] ){
-                minIndex = j;
-            } 
+            if(arr[j] < arr[min]) {
+                min = j
+            }
         }
-        [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+        [arr[i], arr[min]] = [arr[min], arr[i]];
     }
     return arr
 };
@@ -66,44 +56,71 @@ const SelectSort = (arr) => {
 const InsertSort = (arr) => {
     const len = arr.length;
     for(let i = 0; i < len; i++) {
-        var curIndex = i;
-        var curVal = arr[i];
-        while(curIndex > 0 && arr[curIndex - 1] > curVal) {
-            [arr[curIndex - 1], arr[curIndex]] = [arr[curIndex], arr[curIndex - 1]];
-            curIndex--;
+        let cur = i;
+        let curVal = arr[i];
+        while(cur > 0 && arr[cur - 1] > curVal) {
+            [arr[cur], arr[cur - 1]] = [arr[cur - 1], arr[cur]];
+            cur--;
         }
-        arr[curIndex] = curVal;
+        arr[cur] = curVal
     }
     return arr
 };
 
 const QuickSort = (arr) => {
-    let len = arr.length;
-    let mid = parseInt(len >> 2);
-    let midVal = arr.slice(mid, 1)[0];
-    let left = [], right = [];
-    for(let i of arr) {
-        i > midVal ? right.push(i) : left.push(i);
-    };
-    return [...QuickSort(left), midVal, ...QuickSort(right)]
+
 };
 
 var timer = null;
 const fd = () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-        // context;
-    },1000)
+
+    }, 1000)
 }
 
 var flag = true;
 const jl = () => {
-    if(!flag) {
-        return
-    }
+    if(!flag) return
     flag = false;
     setTimeout(() => {
-        // context;
-        flag = true;
-    }, 1000)
+
+        flag = true
+    })
+}
+
+const myNew = (fn, ...args) => {
+    let obj = {};
+    Object.setPrototypeOf(obj, fn.prototype);
+    let res = fn.call(obj.args);
+    return res instanceof Object ? res : obj
+}
+
+Promise.newAll = function(promises) {
+    let arr = [];
+    let count = 0;
+    return new Promise((reslove, reject) => {
+        promises.forEach((item, i) => {
+            Promise.reslove(item).then(res => {
+                arr[i] = res;
+                count += 1;
+                if(count == promises.length) {
+                    reslove(arr);
+                }
+            }).catch(reject);
+        })
+    })
+}
+
+const deepClone = (target, src) => {
+    let target = target || {};
+    for(let key in src) {
+        if(typeof src[key] === 'object') {
+            target[key] = src[key].constructor === Array ? [] : {};
+            deepClone(target[key], src[key]);
+        } else {
+            target[key] = src[key];
+        }
+    }
+    return target
 }
