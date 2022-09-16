@@ -6,7 +6,7 @@ const myCurry = () => {
     }
     _inFun.toString = () => {
         return _args.reduce((x,y) => {
-            retu rn x + y
+            return x + y
         })
     }
     return _inFun    
